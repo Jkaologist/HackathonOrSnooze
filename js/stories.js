@@ -19,16 +19,15 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-$submitFormBtn.on('submit', getFormData)
-
 async function getFormData(evt) {
   const $createAuthor = $('#create-author').val();
   const $createTitle = $('#create-title').val();
   const $createUrl = $('#create-url').val();
-  let story = await StoryList.addStory(currentUser,{author:$createAuthor, title:$createTitle, url:$createUrl});
+  const $user = currentUser.username;
+  let story = await StoryList.addStory(currentUser,{$createAuthor, $createTitle,$createUrl, $user});
   console.log(story);
 }
-
+$submitFormBtn.on('submit', getFormData);
 
 
 function generateStoryMarkup(story) {
