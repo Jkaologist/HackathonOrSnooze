@@ -11,21 +11,26 @@ class Story {
   /** Make instance of Story from data object about story:
    *   - {title, author, url, username, storyId, createdAt}
    */
-
-  constructor({ storyId, title, author, url, username, createdAt }) {
+  // Added a new variable here, isFavorite initialized as false ----||----
+  constructor({ storyId, title, author, url, username, createdAt, isFavorite = false}) {
     this.storyId = storyId;
     this.title = title;
     this.author = author;
     this.url = url;
     this.username = username;
     this.createdAt = createdAt;
+  // New line for constructing the isFavorite attribute to story classes
+    this.isFavorite = isFavorite;
   }
 
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+
+    // parse into a new URL object and grab the hostname 
+    // https://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and-path-in-javascript
+    return (new URL(this.url).hostname);
   }
 }
 

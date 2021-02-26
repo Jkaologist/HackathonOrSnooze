@@ -19,6 +19,7 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
+<<<<<<< HEAD
 async function getFormData(evt) {
   const $createAuthor = $('#create-author').val();
   const $createTitle = $('#create-title').val();
@@ -30,6 +31,8 @@ async function getFormData(evt) {
 $submitFormBtn.on('submit', getFormData);
 
 
+=======
+>>>>>>> b23eaefdbe27f7f6c59e374ef471f6aa5980a48f
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
@@ -58,6 +61,26 @@ function putStoriesOnPage() {
     const $story = generateStoryMarkup(story);
     $allStoriesList.append($story);
   }
-
   $allStoriesList.show();
 }
+
+async function getFormData(evt) {
+  // added console.debug log & page refresh prevention here
+  console.debug("getFormData");
+  evt.preventDefault();
+
+  const $createAuthor = $('#create-author').val();
+  const $createTitle = $('#create-title').val();
+  const $createUrl = $('#create-url').val();
+  // We had this in caps || so it pointed to the blank class function instead of the current instance
+  const newStory = await storyList.addStory(currentUser,{author:$createAuthor, title:$createTitle, url:$createUrl});
+  // Pass the story var into the generateStoryMarkup function
+  let $story = generateStoryMarkup(newStory);
+  // Add the story to the top of the list
+  $allStoriesList.prepend($story);
+  // reset the form after displaying it again
+  $submitForm.show();
+  $submitForm.trigger("reset");
+}
+
+$submitForm.on('submit', getFormData);

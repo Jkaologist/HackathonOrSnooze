@@ -3,6 +3,13 @@
 /******************************************************************************
  * Handling navbar clicks and updating navbar
  */
+
+ // On "submit" this displays the submit form and story list
+
+ /*******************************************************
+ We can probably reuse this code to display the HTML for
+ the 'favorites' and 'my stories'
+ ********************************************************/
 function navBarSubmit(evt) {
   console.debug("navBarClickSubmit", evt);
   hidePageComponents();
@@ -10,7 +17,7 @@ function navBarSubmit(evt) {
 }
 
 $navSubmitSory.on('click',navBarSubmit);
- console.log($navSubmitSory);
+// Removed the console log we used for troubleshooting here ****
 /** Show main list of all stories when click site name */
 
 function navAllStories(evt) {
