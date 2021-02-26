@@ -36,7 +36,7 @@ function navLoginClick(evt) {
   hidePageComponents();
   $loginForm.show();
   $signupForm.show();
-}
+};
 
 $navLogin.on("click", navLoginClick);
 

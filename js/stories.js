@@ -22,8 +22,12 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  // Updated to display a star for favorite functionality
   return $(`
       <li id="${story.storyId}">
+        <span class="star">
+          <i class="far fa-star"></i>
+        </span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
