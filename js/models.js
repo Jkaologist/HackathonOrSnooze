@@ -249,7 +249,7 @@ class User {
 
   /** Return true/false if given Story instance is a favorite of this user. */
 
-  // isFavorite(story) {
-  //   return this.favorites.some(s => (s.storyId === story.storyId));
-  // }
+  isFavorite(story) {
+    return this.favorites.some(s => (s.storyId === story.storyId));
+  }
 }

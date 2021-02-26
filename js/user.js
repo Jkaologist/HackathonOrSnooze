@@ -25,6 +25,8 @@ async function login(evt) {
 
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
+  $loginForm.hide();
+  $signupForm.hide();
 }
 
 $loginForm.on("submit", login);
@@ -110,8 +112,7 @@ function saveUserCredentialsInLocalStorage() {
 
 function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
-
   $allStoriesList.show();
-
+  putStoriesOnPage();
   updateNavOnLogin();
 }

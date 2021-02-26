@@ -21,10 +21,12 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
-
   const hostName = story.getHostName();
+  const showStar = currentUser ? true : false;
+  // Updated to display a star for favorite functionality
   return $(`
       <li id="${story.storyId}">
+        ${showStar ? getStarHTML(story, currentUser) : ''}
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -33,6 +35,15 @@ function generateStoryMarkup(story) {
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
+}
+
+//Make favorite/not-favorite star for story
+function getStarHTML(story, user) {
+  const isFavorite = user.isFavorite(story);
+  const starType = isFavorite ? 'fas' : 'far';
+  return `<span class="star">
+            <i class="fa-star ${starType}"></i>
+          </span>`;
 }
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
@@ -47,6 +58,7 @@ function putStoriesOnPage() {
     const $story = generateStoryMarkup(story);
     $allStoriesList.append($story);
   }
+  $allStoriesList.trigger("reset");
   $allStoriesList.show();
 }
 
@@ -59,7 +71,9 @@ async function getFormData(evt) {
   const $createTitle = $('#create-title').val();
   const $createUrl = $('#create-url').val();
   // We had this in caps || so it pointed to the blank class function instead of the current instance
-  const newStory = await storyList.addStory(currentUser,{author:$createAuthor, title:$createTitle, url:$createUrl});
+  const newStory = await storyList.addStory(currentUser,
+    { author: $createAuthor, title: $createTitle, url: $createUrl });
+  storyList.stories.unshift(newStory);
   // Pass the story var into the generateStoryMarkup function
   let $story = generateStoryMarkup(newStory);
   // Add the story to the top of the list
