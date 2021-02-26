@@ -80,7 +80,6 @@ class StoryList {
 
   async addStory(user, newStory) {
     // UNIMPLEMENTED: complete this function!
- 
     const response = await axios.post(`${BASE_URL}/stories`, {
       token: user.loginToken,
       story: { 
@@ -89,16 +88,17 @@ class StoryList {
         url: newStory.url
       }
     });
+    const data = response.data.story;
   // return storyInstance
     return new Story(
       {
-        "author": response.data.story.author,
-        "createdAt": response.data.story.createdAt,
-        "storyId": response.data.story.storyId,
-        "title": response.data.story.title,
-        "updatedAt": response.data.story.updatedAt,
-        "url": response.data.story.url,
-        "username": response.data.story.username
+        "author": data.author,
+        "createdAt": data.createdAt,
+        "storyId": data.storyId,
+        "title": data.title,
+        "updatedAt": data.updatedAt,
+        "url": data.url,
+        "username": data.username
       }
     );
   }
@@ -188,22 +188,27 @@ class User {
     );
   }
 // setting all the stories to true//
- findfavorite(stories){
-    for (let story of stories) {
-        story = true;
+ findfavorite(storyList){
+    for (let story of storyList) {
+        story.isFavorite = true;
     }
   }
 
-  async addFavoriteStory(story){
-   if ( story.isFavorite = true) {
-     this.favorites.push(story);
-   }
-    
+   async addFavoriteStory(evt){
+    evt.preventDefault();
+    const x = storyList.stories.story.storyId;
+    console.log(x);
   }
-  async removeFavoriteStory(story){
-    if ( story.isFavorite = false)
-    this.favorites.pop(story);
-  }
+
+  //  if ( story.isFavorite = true) {
+  //    this.favorites.push(story);
+  //  }
+  // }
+
+  // async removeFavoriteStory(story){
+  //   if ( story.isFavorite = false)
+  //   this.favorites.pop(story);
+  // }
 
   /** When we already have credentials (token & username) for a user,
    *   we can log them in automatically. This function does that.
@@ -235,3 +240,5 @@ class User {
     }
   }
 }
+
+

@@ -8,7 +8,6 @@ let storyList;
 async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
-
   putStoriesOnPage();
 }
 
@@ -59,14 +58,14 @@ async function getFormData(evt) {
   const $createTitle = $('#create-title').val();
   const $createUrl = $('#create-url').val();
   // We had this in caps || so it pointed to the blank class function instead of the current instance
-  const newStory = await storyList.addStory(currentUser,{author:$createAuthor, title:$createTitle, url:$createUrl});
+  const newStory = await storyList.addStory(currentUser,
+  {author:$createAuthor, title:$createTitle, url:$createUrl});
+  storyList.stories.unshift(newStory);
   // Pass the story var into the generateStoryMarkup function
-  let $story = generateStoryMarkup(newStory);
   // Add the story to the top of the list
-  $allStoriesList.prepend($story);
   // reset the form after displaying it again
+  await getAndShowStoriesOnStart();
   $submitForm.show();
-  $submitForm.trigger("reset");
 }
 
 $submitForm.on('submit', getFormData);

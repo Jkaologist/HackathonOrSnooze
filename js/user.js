@@ -29,6 +29,7 @@ async function login(evt) {
 
 $loginForm.on("submit", login);
 
+
 /** Handle signup form submission. */
 
 async function signup(evt) {
