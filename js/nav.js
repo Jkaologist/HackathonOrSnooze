@@ -10,7 +10,7 @@ function navBarSubmit(evt) {
 }
 
 $navSubmitSory.on('click',navBarSubmit);
- console.log($navSubmitSory);
+// Removed the console log we used for troubleshooting here ****
 /** Show main list of all stories when click site name */
 
 function navAllStories(evt) {
