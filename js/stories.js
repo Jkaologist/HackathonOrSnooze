@@ -84,3 +84,24 @@ async function getFormData(evt) {
 }
 
 $submitForm.on('submit', getFormData);
+
+
+
+async function toggleStoryFavorite(evt) {
+  console.debug("toggleStoryFavorite");
+  const $tgt = $(evt.target);
+  const $closestLi = $tgt.closest("li");
+  const storyId = $closestLi.attr("id");
+  const story = storyList.stories.find(s => s.storyId === storyId);
+  // see if the item is already favorited (checking by presence of star)
+  if ($tgt.hasClass("fas")) {
+    // currently a favorite: remove from user's fav list and change star
+    await currentUser.removeFavorite(story);
+    $tgt.closest("i").toggleClass("fas far");
+  } else {
+    // currently not a favorite: do the opposite
+    await currentUser.addFavorite(story);
+    $tgt.closest("i").toggleClass("fas far");
+  }
+}
+$storiesLists.on("click", ".star", toggleStoryFavorite);
