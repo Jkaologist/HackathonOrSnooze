@@ -8,6 +8,7 @@ let storyList;
 async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
+
   putStoriesOnPage();
 }
 
@@ -22,12 +23,8 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
-  // Updated to display a star for favorite functionality
   return $(`
       <li id="${story.storyId}">
-        <span class="star">
-          <i class="far fa-star"></i>
-        </span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -62,14 +59,14 @@ async function getFormData(evt) {
   const $createTitle = $('#create-title').val();
   const $createUrl = $('#create-url').val();
   // We had this in caps || so it pointed to the blank class function instead of the current instance
-  const newStory = await storyList.addStory(currentUser,
-  {author:$createAuthor, title:$createTitle, url:$createUrl});
-  storyList.stories.unshift(newStory);
+  const newStory = await storyList.addStory(currentUser,{author:$createAuthor, title:$createTitle, url:$createUrl});
   // Pass the story var into the generateStoryMarkup function
+  let $story = generateStoryMarkup(newStory);
   // Add the story to the top of the list
+  $allStoriesList.prepend($story);
   // reset the form after displaying it again
-  await getAndShowStoriesOnStart();
   $submitForm.show();
+  $submitForm.trigger("reset");
 }
 
 $submitForm.on('submit', getFormData);
