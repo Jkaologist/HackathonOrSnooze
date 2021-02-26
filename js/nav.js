@@ -3,6 +3,13 @@
 /******************************************************************************
  * Handling navbar clicks and updating navbar
  */
+
+ // On "submit" this displays the submit form and story list
+
+ /*******************************************************
+ We can probably reuse this code to display the HTML for
+ the 'favorites' and 'my stories'
+ ********************************************************/
 function navBarSubmit(evt) {
   console.debug("navBarClickSubmit", evt);
   hidePageComponents();
