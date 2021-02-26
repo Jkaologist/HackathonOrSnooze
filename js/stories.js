@@ -58,14 +58,15 @@ async function getFormData(evt) {
   const $createAuthor = $('#create-author').val();
   const $createTitle = $('#create-title').val();
   const $createUrl = $('#create-url').val();
-  console.log($createUrl);
   // We had this in caps || so it pointed to the blank class function instead of the current instance
   const newStory = await storyList.addStory(currentUser,{author:$createAuthor, title:$createTitle, url:$createUrl});
-  console.log(newStory);
-  // Add the story to the top of the list.
-  $allStoriesList.prepend(newStory);
-  // Borrowed code to reset the form
-  $submitFormBtn.trigger("reset");
+  // Pass the story var into the generateStoryMarkup function
+  let $story = generateStoryMarkup(newStory);
+  // Add the story to the top of the list
+  $allStoriesList.prepend($story);
+  // reset the form after displaying it again
+  $submitForm.show();
+  $submitForm.trigger("reset");
 }
 
-$submitFormBtn.on('submit', getFormData);
+$submitForm.on('submit', getFormData);
