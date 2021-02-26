@@ -82,7 +82,7 @@ class StoryList {
     // UNIMPLEMENTED: complete this function!
  
     const response = await axios.post(`${BASE_URL}/stories`, {
-      token: await user.loginToken,
+      token: user.loginToken,
       story: { 
         author: newStory.author,
         title: newStory.title,
@@ -175,7 +175,7 @@ class User {
     });
 
     let { user } = response.data;
-
+    console.log(user.favorites);
     return new User(
       {
         username: user.username,
@@ -186,6 +186,23 @@ class User {
       },
       response.data.token
     );
+  }
+// setting all the stories to true//
+ findfavorite(stories){
+    for (let story of stories) {
+        story = true;
+    }
+  }
+
+  async addFavoriteStory(story){
+   if ( story.isFavorite = true) {
+     this.favorites.push(story);
+   }
+    
+  }
+  async removeFavoriteStory(story){
+    if ( story.isFavorite = false)
+    this.favorites.pop(story);
   }
 
   /** When we already have credentials (token & username) for a user,
