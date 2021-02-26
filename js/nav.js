@@ -3,7 +3,14 @@
 /******************************************************************************
  * Handling navbar clicks and updating navbar
  */
+function navBarSubmit(evt) {
+  console.debug("navBarClickSubmit", evt);
+  hidePageComponents();
+  $storiesContainer.show();
+}
 
+$navSubmitSory.on('click',navBarSubmit);
+ console.log($navSubmitSory);
 /** Show main list of all stories when click site name */
 
 function navAllStories(evt) {
