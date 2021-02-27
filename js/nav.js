@@ -16,6 +16,19 @@ function navBarSubmit(evt) {
   $storiesContainer.show();
 }
 
+function navFavorite(evt) {
+  console.debug("navBarCickFavorite", evt);
+  hidePageComponents();
+  console.log(currentUser.favorites)
+  let favoriteStory = new Story ()
+  const favorites = generateStoryMarkup(currentUser.favorites);
+  $favoriteStoriesList.append(favorites);
+
+  $favoriteStoriesList.show();
+}
+
+$navFavorites.on('click', navFavorite);
+
 $navSubmitSory.on('click', navBarSubmit);
 // Removed the console log we used for troubleshooting here ****
 /** Show main list of all stories when click site name */
